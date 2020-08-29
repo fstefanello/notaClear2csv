@@ -44,6 +44,8 @@ function extractFromFile {
 
   noteNumber=$(echo "${NOTA}"|sed '3q;d'|awk '{print $1}')
   noteDate=$(echo "${NOTA}"|sed '3q;d'|awk '{print $3}')
+  noteMonth=$(echo "${noteDate}"|cut -d '/' -f 2 )
+  noteYear=$(echo "${noteDate}"|cut -d '/' -f 3 )
 
   # echo "$NOTA"
   TRANSACTIONS=$(echo "${NOTA}"| egrep "1-BOVESPA")
@@ -65,12 +67,12 @@ function extractFromFile {
     rValue=$signal$(echo "$d"| awk '{print $(NF - 1)}')
     # rOpera=$(echo "$d"| awk '{print $(NF - 0)}')
 
-    echo "${noteNumber}; ${noteDate}; ${rType}; ${rCompany}; ${rObs}; ${rQuant}; ${rPrice}; ${rValue}"
+    echo "${noteNumber}; ${noteDate}; ${noteMonth}; ${noteYear}; ${rType}; ${rCompany}; ${rObs}; ${rQuant}; ${rPrice}; ${rValue}"
   done < <(printf '%s\n' "$TRANSACTIONS")
 
 }
 
-echo "Nota; Data; Tipo; Companhia; Eventos; Obs; Quantidade; ValUnitario; Total"
+echo "Nota; Data; Mês; Ano; Tipo; Companhia; Eventos; Obs; Quantidade; ValUnitario; Total"
 for f in $@ ; do
   extractFromFile $f
 done
