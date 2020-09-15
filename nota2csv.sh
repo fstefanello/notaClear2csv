@@ -43,7 +43,8 @@ function extractFromFile {
   NOTA=$(pdftotext  -layout $FILE -)
 
   noteNumber=$(echo "${NOTA}"|sed '3q;d'|awk '{print $1}')
-  noteDate=$(echo "${NOTA}"|sed '3q;d'|awk '{print $3}')
+  noteDate=$(echo "${NOTA}"|sed '3q;d'|awk '{print $NF}')
+
   noteMonth=$(echo "${noteDate}"|cut -d '/' -f 2 )
   noteYear=$(echo "${noteDate}"|cut -d '/' -f 3 )
 
