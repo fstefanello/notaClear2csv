@@ -86,7 +86,7 @@ function extratoList {
   while IFS= read -r line ; do
 
     rType=$(echo "$line"|grep -Eo ' [CV]{1} '| xargs)
-    if [[ "$rType" == "V"* ]]; then signal="-"; else signal=""; fi
+    # if [[ "$rType" == "V"* ]]; then signal="-"; else signal=""; fi
 
     rCompany=$(echo "${line:70:60}"|xargs)
     rCompany=$(companyEventSeparation "$rCompany")
